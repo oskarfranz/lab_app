@@ -62,18 +62,15 @@ class _HomePageState extends State<HomePage> {
               ) 
           ),
            Expanded(
-             child: Column(
+             child: ListView(
                children: [
-                 SizedBox(
-                      height: 40,
-                    ),
                   Container(
+                  padding: EdgeInsets.all(25),
                   decoration: BoxDecoration(
                     color: Colors.transparent,
-                    border: Border.all(width: 2, color: Colors.grey),
-                    borderRadius: BorderRadius.circular(10),
+                    // border: Border.all(width: 2, color: Colors.grey),
+                    // borderRadius: BorderRadius.circular(10),
                   ),
-                  padding: EdgeInsets.all(25),
                   child: Column(
                     children: [
                       Image.network(
@@ -212,7 +209,6 @@ class _HomePageState extends State<HomePage> {
                             )
                           ),
                         ),
-                        
                       ],
                     ),
                     ],
