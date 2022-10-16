@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 // import 'package:http/http.dart' as http;
 // import './myprovider.dart'; 
 
-
-
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -28,17 +26,13 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Lab App'),
+        backgroundColor: Color.fromARGB(255, 39, 38, 38),
+      ),
       body: Column(
-        // mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: 75,
-              ),
-            ],
-          ),
+          SizedBox(height: 25,),
           Container(
             width: 290,
             height: 45,
@@ -138,14 +132,11 @@ class _HomePageState extends State<HomePage> {
                           width: 180,
                           height: 40,
                           child: TextButton(
-                            
                             style: TextButton.styleFrom(
                               backgroundColor: Colors.black,
-                              foregroundColor: Colors.white,
+                              // foregroundColor: Colors.white,
                             ),
-                            onPressed: ()=>{
-
-                            }, 
+                            onPressed: (){ showAlertDialog(context); }, 
                             child: Text(
                               'Solicitar material',
                               style: TextStyle(
@@ -221,4 +212,34 @@ class _HomePageState extends State<HomePage> {
       )
     );
   }
+}
+
+showAlertDialog(BuildContext context) {
+  Widget cancelButton = TextButton(
+    child: Text("Cancelar", style: TextStyle(color: Colors.white)),
+    onPressed:  () {
+      Navigator.pop(context);
+    },
+  );
+  Widget continueButton = TextButton(
+    child: Text("Confirmar", style: TextStyle(color: Colors.green)),
+    onPressed:  () {},
+  );
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    backgroundColor: Color.fromARGB(255, 52, 52, 52),
+    title: Text("Solicitud", style: TextStyle(color: Colors.white)),
+    content: Text("Recuerda que debes reocoger el material en un plazo de 48hrs máximo", style: TextStyle(color: Colors.white)),
+    actions: [
+      cancelButton,
+      continueButton,
+    ],
+  );
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }
