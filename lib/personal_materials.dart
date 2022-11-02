@@ -1,5 +1,29 @@
 import 'package:flutter/material.dart';
 
+final List<Map<String, String>> _personalMaterials = [
+    {
+      "name": "Compuerta OR",
+      "status": "No devuelto",
+      "image": "https://uelectronics.com/wp-content/uploads/2017/08/AR0140-74LS32-Compuerta-OR-SN74LS32N-V1.jpg",
+      "unidades": "3 unidades",
+      "fecha": "27 de noviembre"
+    },
+    {
+      "name": "Cables",
+      "status": "No devuelto",
+      "image": "https://www.cableredes.net/cups/Tipos-de-cable-de-red-880x608.jpg",
+      "unidades": "5 unidades",
+      "fecha": "1 de diciembre"
+    },
+    {
+      "name": "Compuerta AND",
+      "status": "Devuelto",
+      "image": "https://uelectronics.com/wp-content/uploads/2017/08/AR0140-74LS32-Compuerta-OR-SN74LS32N-V1.jpg",
+      "unidades": "2 unidades",
+      "fecha": "25 de noviembre"
+    },
+];
+
 class PersonalMaterials extends StatelessWidget {
   const PersonalMaterials({super.key});
 
@@ -18,99 +42,29 @@ class PersonalMaterials extends StatelessWidget {
           Divider(),
           SizedBox(height: 15,),
           Expanded(
-            child: ListView(
-              children: [
-                Row(
+            child: ListView.builder(
+              scrollDirection: Axis.vertical,
+              itemCount: _personalMaterials.length,
+              itemBuilder: (context, index){
+                return Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Image(image: NetworkImage("https://uelectronics.com/wp-content/uploads/2017/08/AR0140-74LS32-Compuerta-OR-SN74LS32N-V1.jpg"), height: 100, width: 100,),
+                    Image(image: NetworkImage("${_personalMaterials[index]["image"]}"), height: 100, width: 100,),
                     Column(
                       children: [
-                        Text("Compuerta OR", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-                        Text("Devolver el 27 de noviembre", style: TextStyle(fontWeight: FontWeight.bold))
+                        Text("${_personalMaterials[index]["name"]}", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                        Text("Devolver el ${_personalMaterials[index]["fecha"]}", style: TextStyle(fontWeight: FontWeight.bold))
                       ],
                     ),
                     Column(
                       children: [
-                        Text("No devuelto", style: TextStyle(fontWeight: FontWeight.w700,color: Colors.red,),),
-                        Text("3 unidades", style: TextStyle(fontWeight: FontWeight.bold))
+                        Text("${_personalMaterials[index]["status"]}", style: TextStyle(fontWeight: FontWeight.w700,color: Colors.red,),),
+                        Text("${_personalMaterials[index]["unidades"]}", style: TextStyle(fontWeight: FontWeight.bold))
                       ],
                     )
                   ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Image(image: NetworkImage("https://www.cableredes.net/cups/Tipos-de-cable-de-red-880x608.jpg"), height: 100, width: 100,),
-                    Column(
-                      children: [
-                        Text("Cables", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-                        Text("Devolver el 1 de diciembre", style: TextStyle(fontWeight: FontWeight.bold))
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        Text("No devuelto", style: TextStyle(fontWeight: FontWeight.w700,color: Colors.red,),),
-                        Text("5 unidades", style: TextStyle(fontWeight: FontWeight.bold))
-                      ],
-                    )
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Image(image: NetworkImage("https://uelectronics.com/wp-content/uploads/2017/08/AR0140-74LS32-Compuerta-OR-SN74LS32N-V1.jpg"), height: 100, width: 100,),
-                    Column(
-                      children: [
-                        Text("Compuerta AND", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-                        Text("Devolver el 25 de noviembre", style: TextStyle(fontWeight: FontWeight.bold))
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        Text("Devuelto", style: TextStyle(fontWeight: FontWeight.w700,color: Colors.green,),),
-                        Text("2 unidades", style: TextStyle(fontWeight: FontWeight.bold))
-                      ],
-                    )
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Image(image: NetworkImage("https://uelectronics.com/wp-content/uploads/2017/08/AR0140-74LS32-Compuerta-OR-SN74LS32N-V1.jpg"), height: 100, width: 100,),
-                    Column(
-                      children: [
-                        Text("Compuerta AND", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-                        Text("Devolver el 25 de noviembre", style: TextStyle(fontWeight: FontWeight.bold))
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        Text("Devuelto", style: TextStyle(fontWeight: FontWeight.w700,color: Colors.green,),),
-                        Text("2 unidades", style: TextStyle(fontWeight: FontWeight.bold))
-                      ],
-                    )
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Image(image: NetworkImage("https://uelectronics.com/wp-content/uploads/2017/08/AR0140-74LS32-Compuerta-OR-SN74LS32N-V1.jpg"), height: 100, width: 100,),
-                    Column(
-                      children: [
-                        Text("Compuerta AND", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-                        Text("Devolver el 25 de noviembre", style: TextStyle(fontWeight: FontWeight.bold))
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        Text("Devuelto", style: TextStyle(fontWeight: FontWeight.w700,color: Colors.green,),),
-                        Text("2 unidades", style: TextStyle(fontWeight: FontWeight.bold))
-                      ],
-                    )
-                  ],
-                ),
-              ],
+                );
+              }
             ),
           ),
         ],
