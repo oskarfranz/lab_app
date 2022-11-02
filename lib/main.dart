@@ -1,9 +1,10 @@
 // import 'package:p11/match_song.dart';
-import 'package:lab_app/list_materials.dart';
-import './home_page.dart';
+
+// import './home_page.dart';
 import 'package:flutter/material.dart';
 import './myprovider.dart';
 import 'package:provider/provider.dart';
+
 import 'login.dart';
 
 
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'MusicMatch',
+      title: 'LabApp',
       theme: ThemeData.light(),
       home: MultiProvider(
         providers: [
