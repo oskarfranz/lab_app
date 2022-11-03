@@ -7,7 +7,8 @@ import 'package:flutter/material.dart';
 // import './myprovider.dart'; 
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key, required this.item});
+  final Object item;
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -15,7 +16,7 @@ class HomePage extends StatefulWidget {
 
 enum SingingCharacter { amazing, good, okay }
 class _HomePageState extends State<HomePage> {
-  
+
   @override 
   void initState() {
     super.initState();
@@ -33,39 +34,11 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         children: [
           SizedBox(height: 25,),
-          Container(
-            width: 290,
-            height: 45,
-            decoration: BoxDecoration(
-              color: Colors.transparent,
-              border: Border.all(width: 3, color: Colors.grey),
-              borderRadius: BorderRadius.circular(24),
-            ),
-            child: 
-              Padding(
-                padding: const EdgeInsets.only(right:18.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Icon(
-                      Icons.search, 
-                      color: Colors.grey,
-                    ),                 
-                  ],
-                ),
-              ) 
-          ),
            Expanded(
              child: ListView(
                children: [
-                  Container(
-                  padding: EdgeInsets.all(25),
-                  decoration: BoxDecoration(
-                    color: Colors.transparent,
-                    // border: Border.all(width: 2, color: Colors.grey),
-                    // borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Column(
+                 
+                  Column(
                     children: [
                       Image.network(
                         'https://http2.mlstatic.com/D_NQ_NP_619799-MLM45257831533_032021-W.jpg',
@@ -73,7 +46,6 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ],
                   ),
-                ),
                 Padding(
                   padding: const EdgeInsets.only(left:53.0, right: 53),
                   child: Column(
