@@ -1,9 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:lab_app/home_page.dart';
 import 'package:lab_app/personal_materials.dart';
+import './myprovider.dart'; 
+import 'package:provider/provider.dart';
 
-class ListMaterials extends StatelessWidget {
+class ListMaterials extends StatefulWidget {
   const ListMaterials({super.key});
+
+  @override
+  State<ListMaterials> createState() => _ListMaterialsState();
+}
+
+class _ListMaterialsState extends State<ListMaterials> {
+  Object items = {};
+  @override 
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +26,7 @@ class ListMaterials extends StatelessWidget {
         backgroundColor: Color.fromARGB(255, 39, 38, 38),
         actions: [
           IconButton(icon: Icon(Icons.person),
-            onPressed: () {
+            onPressed: (){
               Navigator.push(context, MaterialPageRoute(builder: (context) => PersonalMaterials()));
             },
           ),
@@ -71,225 +84,10 @@ class ListMaterials extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text("Cables",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-                                IconButton(icon: Icon(Icons.add), onPressed: (){ 
-                                  specificMaterial(); 
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
-                                },)
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Stack(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(),
-                      image: DecorationImage(
-                        image: NetworkImage("https://uelectronics.com/wp-content/uploads/2017/06/AR0005-Protoboard-830-Pts-MB-102-5.jpg"),
-                        fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 0,right: 0,left: 0,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(),
-                        ),
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text("Protoboard",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-                                IconButton(icon: Icon(Icons.add), onPressed: (){
-                                  specificMaterial();
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
-                                },)
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Stack(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(),
-                      image: DecorationImage(
-                        image: NetworkImage("https://mexico.newark.com/productimages/standard/en_US/40AH1577-40.jpg"),
-                        fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 0,right: 0,left: 0,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(),
-                        ),
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text("Basys",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-                                IconButton(icon: Icon(Icons.add), onPressed: (){
-                                  specificMaterial(); 
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
-                                },)
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Stack(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(),
-                      image: DecorationImage(
-                        image: NetworkImage("https://www.mouser.mx/images/marketingid/2020/img/108638983.png?v=031122.0117"),
-                        fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 0,right: 0,left: 0,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(),
-                        ),
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text("Basys III",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-                                IconButton(icon: Icon(Icons.add), onPressed: (){
-                                  specificMaterial(); 
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
-                                },)
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Stack(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(),
-                      image: DecorationImage(
-                        image: NetworkImage("https://uelectronics.com/wp-content/uploads/2018/02/AR0292-74LS11-Compuerta-AND-3-Entradas-SN74LS11N-V1-1.jpg"),
-                        fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 0,right: 0,left: 0,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(),
-                        ),
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text("Compuerta AND",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-                                IconButton(icon: Icon(Icons.add), onPressed: (){
-                                  specificMaterial(); 
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
-                                },)
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Stack(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(),
-                      image: DecorationImage(
-                        image: NetworkImage("https://s1.eestatic.com/2021/12/31/invertia/disruptores-innovadores/politica-digital/europa/638946123_220700024_1024x576.jpg"),
-                        fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 0,right: 0,left: 0,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(),
-                        ),
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text("Microprocesador",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-                                IconButton(icon: Icon(Icons.add), onPressed: (){ 
-                                  specificMaterial(); 
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
-                                },)
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Stack(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(),
-                      image: DecorationImage(
-                        image: NetworkImage("https://uelectronics.com/wp-content/uploads/2017/08/AR0140-74LS32-Compuerta-OR-SN74LS32N-V1.jpg"),
-                        fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 0,right: 0,left: 0,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(),
-                        ),
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text("Compuerta OR",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
-                                IconButton(icon: Icon(Icons.add), onPressed: (){
-                                  specificMaterial(); 
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+                                IconButton(icon: Icon(Icons.add), onPressed: () async{ 
+                                  await context.read<MyProvider>().getItems();
+                                  this.items = context.read<MyProvider>().items;
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(item : this.items)));
                                 },)
                               ],
                             )

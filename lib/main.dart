@@ -2,13 +2,9 @@
 
 // import './home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:lab_app/list_materials.dart';
 import './myprovider.dart';
 import 'package:provider/provider.dart';
-
-import 'login.dart';
-
-
-
 
 void main() => runApp(MyApp());
 
@@ -24,7 +20,7 @@ class MyApp extends StatelessWidget {
         providers: [
           ChangeNotifierProvider<MyProvider>(create: (_) => MyProvider()),
         ],
-        child: Login(),
+        child: ListMaterials(),
 )
       
     );
