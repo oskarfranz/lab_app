@@ -16,6 +16,12 @@ class _ListMaterialsState extends State<ListMaterials> {
   @override 
   void initState() {
     super.initState();
+    asyncMethod();
+  }
+
+  void asyncMethod() async {
+    await context.read<MyProvider>().getItems();
+    this.items = await context.read<MyProvider>().items;
   }
 
   @override
@@ -46,27 +52,31 @@ class _ListMaterialsState extends State<ListMaterials> {
                 suffixIcon: Align(
                   widthFactor: 1.0,
                   heightFactor: 1.0,
-                  child: IconButton(onPressed: searchBook,icon: Icon(Icons.search),),
+                  child: IconButton(onPressed: () {},icon: Icon(Icons.search),),
                 ),
               ),
             ),
           ),
           SizedBox(height: 10,),
           Text("Materiales", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25)),
+          context.watch<MyProvider>().items.length == 0 ? CircularProgressIndicator(value: 0.8,) : SizedBox(),
           Expanded(
             child: GridView.count(
               padding: const EdgeInsets.all(25),
               crossAxisSpacing: 10,
               mainAxisSpacing: 10,
               crossAxisCount: 2,
-              children: <Widget>[
+              shrinkWrap: true,
+              children: List<Widget>.generate(
+                (context.watch<MyProvider>().items.length),
+                (index) =>
                 Stack(
                   children: [
                     Container(
                       decoration: BoxDecoration(
                         border: Border.all(),
                         image: DecorationImage(
-                          image: NetworkImage("https://www.electropolis.es/media/magefan_blog/2019/11/Dise%C3%B1o-sin-t%C3%ADtulo-1.jpeg"),
+                          image: NetworkImage("${context.read<MyProvider>().items[index]['imageUrl']}"),
                           fit: BoxFit.cover,
                           ),
                         ),
@@ -83,11 +93,11 @@ class _ListMaterialsState extends State<ListMaterials> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text("Cables",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+                                Text("${context.read<MyProvider>().items[index]['name']}",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
                                 IconButton(icon: Icon(Icons.add), onPressed: () async{ 
                                   await context.read<MyProvider>().getItems();
                                   this.items = context.read<MyProvider>().items;
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(item : this.items.elementAt(0))));
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(item : this.items.elementAt(index))));
                                 },)
                               ],
                             )
@@ -97,18 +107,11 @@ class _ListMaterialsState extends State<ListMaterials> {
                     ),
                   ],
                 ),
-              ],
+              ),
             ),
           )
         ],
       )
     );
   }
-}
-
-void searchBook(){
-  print("comming through");
-}
-void specificMaterial(){
-  print("comming through");
 }
