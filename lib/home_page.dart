@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.item});
-  final Object item;
+  final Map item;
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -16,7 +16,7 @@ class HomePage extends StatefulWidget {
 
 enum SingingCharacter { amazing, good, okay }
 class _HomePageState extends State<HomePage> {
-
+  
   @override 
   void initState() {
     super.initState();
@@ -25,10 +25,10 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-
+    
     return Scaffold(
       appBar: AppBar(
-        title: Text('Lab App'),
+        // title: Text('Lab App'),
         backgroundColor: Color.fromARGB(255, 39, 38, 38),
       ),
       body: Column(
@@ -41,7 +41,8 @@ class _HomePageState extends State<HomePage> {
                   Column(
                     children: [
                       Image.network(
-                        'https://http2.mlstatic.com/D_NQ_NP_619799-MLM45257831533_032021-W.jpg',
+                        widget.item['imageUrl'],
+                        // "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/640px-Image_created_with_a_mobile_phone.png",
                         height: 220,
                       ),
                     ],
@@ -55,18 +56,21 @@ class _HomePageState extends State<HomePage> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           // SizedBox(width: 55,),
-                          Text(
-                            'Compuerta OR',
-                            style: TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.w700
+                          Container(
+                            width: 160,
+                            child: Text(
+                              widget.item['name'],
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w700
+                              ),
                             ),
                           ),
                           SizedBox(width: 37,),
                           Text(
-                            'Disponible',
+                            (widget.item['aviableUnits']>0)? 'Disponible': 'No disponible',
                             style: TextStyle(
-                              fontSize: 16,
+                              fontSize: 15,
                               fontWeight: FontWeight.w700,
                               color: Colors.green,
                             ),
@@ -78,16 +82,19 @@ class _HomePageState extends State<HomePage> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           SizedBox(width: 0,),
-                          Text(
-                            '74LS32',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700
+                          Container(
+                            width: 160,
+                            child: Text(
+                              widget.item['partNumber'],
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700
+                              ),
                             ),
                           ),
-                          SizedBox(width: 145,),
+                          SizedBox(width: 37,),
                           Text(
-                            '24 Unidades',
+                            widget.item['aviableUnits'].toString() + ' Unidades',
                             style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w700,
@@ -108,7 +115,10 @@ class _HomePageState extends State<HomePage> {
                               backgroundColor: Colors.black,
                               // foregroundColor: Colors.white,
                             ),
-                            onPressed: (){ showAlertDialog(context); }, 
+                            onPressed: (){ 
+                              showAlertDialog(context); 
+                              print(widget.item);
+                            }, 
                             child: Text(
                               'Solicitar material',
                               style: TextStyle(
@@ -138,7 +148,7 @@ class _HomePageState extends State<HomePage> {
                         Container(
                           width:287,
                           child: Text(
-                            'Este circuito TTl cuenta con 4 compuertas OR y es compatible con protoboards',
+                            widget.item['description'],
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w400
@@ -165,7 +175,7 @@ class _HomePageState extends State<HomePage> {
                         Container(
                           width:287,
                           child: Text(
-                            '- VCC 5V',
+                            widget.item['features'].toString().replaceFirst('[','- ').replaceFirst(']','').replaceAll(',','\n-'),
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w400

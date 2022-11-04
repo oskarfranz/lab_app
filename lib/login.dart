@@ -3,6 +3,8 @@
 // import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:lab_app/list_materials.dart';
+import 'package:provider/provider.dart';
+import "./login_provider.dart";
 // import 'package:http/http.dart' as http; 
 
 
@@ -16,11 +18,20 @@ class Login extends StatefulWidget {
 
 enum SingingCharacter { amazing, good, okay }
 class _LoginState extends State<Login> {
-  
+  var userController = TextEditingController();
+  var passwordController = TextEditingController();
   @override 
   void initState() {
     super.initState();
   
+  }
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    userController.dispose();
+    passwordController.dispose();
+    super.dispose();
   }
 
   @override
@@ -37,6 +48,7 @@ class _LoginState extends State<Login> {
           ),
           Padding(padding:EdgeInsets.only(top:50, right:20, left:20), child: 
             TextField(
+              controller: userController,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 prefixIcon: Icon(Icons.adjust),
@@ -46,6 +58,7 @@ class _LoginState extends State<Login> {
           ),
           Padding(padding: EdgeInsets.only(top:25, right:20, left:20), child: 
             TextField(
+              controller: passwordController,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 prefixIcon: Icon(Icons.donut_large),
@@ -59,8 +72,14 @@ class _LoginState extends State<Login> {
               height: 40,
               child: TextButton(
                 child: Text('Ingresar'),
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => ListMaterials()));
+                onPressed: () async {
+                  await context.read<LoginProvider>().Login(userController.text, passwordController.text);
+                  bool isLogged = context.read<LoginProvider>().isLogged;
+                  print(isLogged);
+                  if(isLogged)
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => ListMaterials()));
+                  else
+                    print("Usuario o contraseña incorrecta");
                 },
                 style: TextButton.styleFrom(
                   // foregroundColor: Colors.white,

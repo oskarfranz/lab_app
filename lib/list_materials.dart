@@ -12,7 +12,7 @@ class ListMaterials extends StatefulWidget {
 }
 
 class _ListMaterialsState extends State<ListMaterials> {
-  Object items = {};
+  List items = [];
   @override 
   void initState() {
     super.initState();
@@ -87,7 +87,7 @@ class _ListMaterialsState extends State<ListMaterials> {
                                 IconButton(icon: Icon(Icons.add), onPressed: () async{ 
                                   await context.read<MyProvider>().getItems();
                                   this.items = context.read<MyProvider>().items;
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(item : this.items)));
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(item : this.items.elementAt(0))));
                                 },)
                               ],
                             )

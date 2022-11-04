@@ -2,7 +2,8 @@
 
 // import './home_page.dart';
 import 'package:flutter/material.dart';
-import 'package:lab_app/list_materials.dart';
+import 'package:lab_app/login.dart';
+import 'package:lab_app/login_provider.dart';
 import './myprovider.dart';
 import 'package:provider/provider.dart';
 
@@ -19,8 +20,9 @@ class MyApp extends StatelessWidget {
       home: MultiProvider(
         providers: [
           ChangeNotifierProvider<MyProvider>(create: (_) => MyProvider()),
+          ChangeNotifierProvider<LoginProvider>(create: (_) => LoginProvider()),
         ],
-        child: ListMaterials(),
+        child: Login(),
 )
       
     );

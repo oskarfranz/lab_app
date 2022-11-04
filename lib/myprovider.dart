@@ -4,11 +4,11 @@ import 'package:http/http.dart' as http;
 
 class MyProvider with ChangeNotifier {
 
-  Map _items = {};
+  List _items = [];
 
-  Map get items => _items;
+  List get items => _items;
 
-  void setItems(Map queryResult) {
+  void setItems(List queryResult) {
     _items = queryResult;
     notifyListeners();
   }
