@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:lab_app/list_materials.dart';
 import 'package:provider/provider.dart';
 import "./login_provider.dart";
+import 'myprovider.dart';
 // import 'package:http/http.dart' as http; 
 
 
@@ -18,6 +19,7 @@ class Login extends StatefulWidget {
 
 enum SingingCharacter { amazing, good, okay }
 class _LoginState extends State<Login> {
+  List items = [];
   var userController = TextEditingController();
   var passwordController = TextEditingController();
   @override 
@@ -36,7 +38,6 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body:
       
@@ -75,9 +76,14 @@ class _LoginState extends State<Login> {
                 onPressed: () async {
                   await context.read<LoginProvider>().Login(userController.text, passwordController.text);
                   bool isLogged = context.read<LoginProvider>().isLogged;
+                  // bool isLogged = false;
                   print(isLogged);
-                  if(isLogged)
+                  if(isLogged){
+                    print('Logged in successfully');
+                    await context.read<MyProvider>().getItems();
+                    this.items = await context.read<MyProvider>().items;
                     Navigator.push(context, MaterialPageRoute(builder: (context) => ListMaterials()));
+                  }
                   else
                     print("Usuario o contraseña incorrecta");
                 },

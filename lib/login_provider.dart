@@ -15,19 +15,24 @@ class LoginProvider with ChangeNotifier {
 
   Future<void> Login(String username, String password) async {
     Uri url = Uri.parse('http://localhost:3000/users/login');
-
     var data = {
       "password": password,
       "username": username
     };
 
     
+    // print(data);
 
-    var response = await http.post(url, body: 'data');
+    var response = await http.post(url,headers: {'Content-type' : 'application/json'}, body: jsonEncode(data));
     // print(parsed);
-    // var parsed = json.decode(response.body);
-    if(response.body.toString()=='s')
+    // print(response);
+    var parsed = json.decode(response.body);
+    print(parsed);
+    if(parsed['logged']== true)
       setIsLogged(true);
+    else{
+      setIsLogged(false);
+    }
     // print(_isLogged.toString());
     // setResult(parsed);
   }
