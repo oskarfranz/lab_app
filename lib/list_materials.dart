@@ -1,31 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:lab_app/home_page.dart';
 import 'package:lab_app/personal_materials.dart';
-import './myprovider.dart'; 
-import 'package:provider/provider.dart';
 
 class ListMaterials extends StatefulWidget {
-  const ListMaterials({super.key});
+  const ListMaterials({super.key, required this.items});
+
+  final List items;
 
   @override
   State<ListMaterials> createState() => _ListMaterialsState();
 }
 
 class _ListMaterialsState extends State<ListMaterials> {
-  List items = [];
+  List itemsMatch = [];
   @override 
   void initState() {
     super.initState();
-    asyncMethod();
-  }
-
-  void asyncMethod() async {
-    await context.read<MyProvider>().getItems();
-    this.items = await context.read<MyProvider>().items;
   }
 
   @override
   Widget build(BuildContext context) {
+    var filterController = TextEditingController();
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Lab App'),
@@ -43,6 +39,7 @@ class _ListMaterialsState extends State<ListMaterials> {
           Padding(
             padding: const EdgeInsets.only(top: 15.0, bottom: 10.0, left: 20.0, right: 20.0),
             child: TextField(
+              controller: filterController,
               decoration: InputDecoration(
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(50.0),
@@ -52,14 +49,14 @@ class _ListMaterialsState extends State<ListMaterials> {
                 suffixIcon: Align(
                   widthFactor: 1.0,
                   heightFactor: 1.0,
-                  child: IconButton(onPressed: () {},icon: Icon(Icons.search),),
+                  child: IconButton(onPressed: () { filterList(filterController.value.text);},icon: Icon(Icons.search),),
                 ),
               ),
             ),
           ),
           SizedBox(height: 10,),
           Text("Materiales", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25)),
-          context.watch<MyProvider>().items.length == 0 ? CircularProgressIndicator(value: 0.8,) : SizedBox(),
+          widget.items.length == 0 ? CircularProgressIndicator(value: 0.8,) : SizedBox(),
           Expanded(
             child: GridView.count(
               padding: const EdgeInsets.all(25),
@@ -68,7 +65,7 @@ class _ListMaterialsState extends State<ListMaterials> {
               crossAxisCount: 2,
               shrinkWrap: true,
               children: List<Widget>.generate(
-                (context.watch<MyProvider>().items.length),
+                (widget.items.length),
                 (index) =>
                 Stack(
                   children: [
@@ -76,7 +73,7 @@ class _ListMaterialsState extends State<ListMaterials> {
                       decoration: BoxDecoration(
                         border: Border.all(),
                         image: DecorationImage(
-                          image: NetworkImage("${context.read<MyProvider>().items[index]['imageUrl']}"),
+                          image: NetworkImage(widget.items[index]['imageUrl']),
                           fit: BoxFit.cover,
                           ),
                         ),
@@ -93,11 +90,9 @@ class _ListMaterialsState extends State<ListMaterials> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text("${context.read<MyProvider>().items[index]['name']}",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+                                Text(widget.items[index]['name'],style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
                                 IconButton(icon: Icon(Icons.add), onPressed: () async{ 
-                                  await context.read<MyProvider>().getItems();
-                                  this.items = context.read<MyProvider>().items;
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(item : this.items.elementAt(index))));
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(item : widget.items.elementAt(index))));
                                 },)
                               ],
                             )
@@ -113,5 +108,16 @@ class _ListMaterialsState extends State<ListMaterials> {
         ],
       )
     );
+  }
+  void filterList(value){
+    print("Valora a buscar: "+value);
+    for(int i= 0; i<widget.items.length; i++){
+      print(widget.items[i]['name'].toLowerCase().contains(value.toLowerCase()));
+      // if(!widget.items[i]['name'].toLowerCase().contains(value.toLowerCase())){
+      //   print(widget.items[i]['name']);
+      //   // itemsMatch.removeAt(i);
+      // }
+      setState(() {});
+    }
   }
 }
