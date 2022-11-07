@@ -2,6 +2,8 @@
 // import 'dart:io';
 // import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 // import 'package:provider/provider.dart';
 // import 'package:http/http.dart' as http;
 // import './myprovider.dart'; 
@@ -33,7 +35,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Column(
         children: [
-          SizedBox(height: 25,),
+          SizedBox(height: 60,),
            Expanded(
              child: ListView(
                children: [
@@ -48,7 +50,7 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                 Padding(
-                  padding: const EdgeInsets.only(left:53.0, right: 53),
+                  padding: const EdgeInsets.only(left:70.0, right: 53, top:50),
                   child: Column(
                     children: [
                       SizedBox(height: 20),
@@ -187,6 +189,26 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),          
                 ),
+                SizedBox(height: 25),
+                Column(
+                    children: [
+                      Image.network(
+                        widget.item['datasheetImg'],
+                        // "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/640px-Image_created_with_a_mobile_phone.png",
+                        width: 270,
+                      ),
+                      InkWell(
+                        onTap: () => {launchUrl(Uri.parse(widget.item['pdfLink'],))},
+                        child: Padding(
+                          padding: const EdgeInsets.only(top:12.0),
+                          child: Text(
+                            'Full datasheet',
+                            style: TextStyle(decoration: TextDecoration.underline, color: Colors.blue),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
                ],
              ),
            ),
