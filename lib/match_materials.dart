@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'home_page.dart';
 
 class MatchMaterials extends StatelessWidget {
-  const MatchMaterials({super.key, required this.itemsMatch});
+  const MatchMaterials({super.key, required this.itemsMatch, required this.userId});
 
   final List itemsMatch;
+  final String userId;
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +54,7 @@ class MatchMaterials extends StatelessWidget {
                               children: [
                                 Text(itemsMatch[index]['name'],style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
                                 IconButton(icon: Icon(Icons.add), onPressed: () async{ 
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(item : itemsMatch.elementAt(index))));
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(item : itemsMatch.elementAt(index), userId: userId)));
                                 },)
                               ],
                             )

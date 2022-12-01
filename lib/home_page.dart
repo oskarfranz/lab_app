@@ -2,15 +2,18 @@
 // import 'dart:io';
 // import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:lab_app/personal_materials.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 // import 'package:provider/provider.dart';
 // import 'package:http/http.dart' as http;
 // import './myprovider.dart'; 
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key, required this.item});
+  const HomePage({super.key, required this.item, required this.userId});
   final Map item;
+  final String userId;
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -118,7 +121,7 @@ class _HomePageState extends State<HomePage> {
                               // foregroundColor: Colors.white,
                             ),
                             onPressed: (){ 
-                              showAlertDialog(context); 
+                              showAlertDialog(context, widget.userId, widget.item); 
                               print(widget.item);
                             }, 
                             child: Text(
@@ -218,7 +221,7 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-showAlertDialog(BuildContext context) {
+showAlertDialog(BuildContext context, userId, item) {
   Widget cancelButton = TextButton(
     child: Text("Cancelar", style: TextStyle(color: Colors.white)),
     onPressed:  () {
@@ -227,7 +230,10 @@ showAlertDialog(BuildContext context) {
   );
   Widget continueButton = TextButton(
     child: Text("Confirmar", style: TextStyle(color: Colors.green)),
-    onPressed:  () {},
+    onPressed:  () {
+      solicitar(userId, item, context);
+      Navigator.pop(context);
+    },
   );
   // set up the AlertDialog
   AlertDialog alert = AlertDialog(
@@ -247,3 +253,42 @@ showAlertDialog(BuildContext context) {
     },
   );
 }
+
+  void getPersonalMaterials(String userId, context) async{
+      Uri url = Uri.parse('http://localhost:3000/users/'+userId);
+      var response = await http.get(url);
+      var parsed = json.decode(response.body);
+      List personalItems = [];
+      personalItems = parsed['items'];
+      Navigator.push(context, MaterialPageRoute(builder: (context) => PersonalMaterials(personalItems: personalItems)));
+  }
+
+  void solicitar(String userId, item, context) async{
+    Uri url = Uri.parse('http://localhost:3000/users/'+userId);
+    var data = {
+      "name": item['name'],
+      "status": "No devuelto",
+      "image": item['imageUrl'],
+      "unidades": "1",
+      "fecha": "30/11/2022"
+    };
+
+    var response = await http.get(url);
+    var parsed = json.decode(response.body);
+    List personalItems = [];
+    personalItems = parsed['items'];
+    personalItems.add(data);
+    print(personalItems);
+
+    updateItems(userId, personalItems);
+
+    getPersonalMaterials(userId, context);
+
+  }
+
+  void updateItems(userId, personalItems)async{
+    Uri urlPost = Uri.parse('http://localhost:3000/users/update/'+userId);
+    var postResponse = await http.post(urlPost,headers: {'Content-type' : 'application/json'}, body: jsonEncode(personalItems));
+    print(postResponse);
+    
+  }

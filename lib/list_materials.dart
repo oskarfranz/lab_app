@@ -38,6 +38,7 @@ class _ListMaterialsState extends State<ListMaterials> {
           IconButton(icon: Icon(Icons.person),
             onPressed: (){
               getPersonalMaterials(widget.userId, context);
+              // solicitar(widget.userId);
             },
           ),
         ],
@@ -106,7 +107,7 @@ class _ListMaterialsState extends State<ListMaterials> {
                               children: [
                                 Text(widget.items[index]['name'],style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
                                 IconButton(icon: Icon(Icons.add), onPressed: () async{ 
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(item : widget.items.elementAt(index))));
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(item : widget.items.elementAt(index), userId: widget.userId)));
                                 },)
                               ],
                             )
@@ -129,7 +130,7 @@ class _ListMaterialsState extends State<ListMaterials> {
     for(int i= 0; i<widget.items.length; i++){
       if(widget.items[i]['name'].toLowerCase().contains(value.toLowerCase())){
         itemsMatch.add(widget.items[i]);
-        Navigator.push(context, MaterialPageRoute(builder: (context) => MatchMaterials(itemsMatch: itemsMatch)));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => MatchMaterials(itemsMatch: itemsMatch, userId: widget.userId)));
       }
       print(itemsMatch);
       print(itemsMatch.length);
@@ -142,7 +143,7 @@ class _ListMaterialsState extends State<ListMaterials> {
     var response = await http.get(url);
     var parsed = json.decode(response.body);
     List personalItems = [];
-    personalItems = parsed['itemsPrueba'];
+    personalItems = parsed['items'];
     Navigator.push(context, MaterialPageRoute(builder: (context) => PersonalMaterials(personalItems: personalItems)));
   }
 }
