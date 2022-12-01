@@ -5,8 +5,11 @@ import 'package:http/http.dart' as http;
 class LoginProvider with ChangeNotifier {
 
   bool _isLogged = false;
+  String _userId = '';
 
   bool get isLogged => _isLogged;
+  String get userId => _userId;
+
 
   void setIsLogged(bool isLogged) {
     _isLogged = isLogged;
@@ -35,6 +38,18 @@ class LoginProvider with ChangeNotifier {
     }
     // print(_isLogged.toString());
     // setResult(parsed);
+  }
+
+  Future<void> getUser(String username) async {
+
+    Uri url = Uri.parse('http://localhost:3000/users/find');
+    var data = {
+      "username": username
+    };
+
+    var response = await http.post(url,headers: {'Content-type' : 'application/json'}, body: jsonEncode(data));
+    var parsed = json.decode(response.body);
+    _userId = parsed['id'];
   }
 
 }

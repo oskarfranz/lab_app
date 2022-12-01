@@ -4,11 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:lab_app/home_page.dart';
 import 'package:lab_app/match_materials.dart';
 import 'package:lab_app/personal_materials.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class ListMaterials extends StatefulWidget {
-  const ListMaterials({super.key, required this.items});
+  const ListMaterials({super.key, required this.items, required this.userId});
 
   final List items;
+  final String userId;
 
   @override
   State<ListMaterials> createState() => _ListMaterialsState();
@@ -20,6 +23,7 @@ class _ListMaterialsState extends State<ListMaterials> {
   @override 
   void initState() {
     super.initState();
+    print(widget.userId);
   }
 
   @override
@@ -33,7 +37,7 @@ class _ListMaterialsState extends State<ListMaterials> {
         actions: [
           IconButton(icon: Icon(Icons.person),
             onPressed: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => PersonalMaterials()));
+              getPersonalMaterials(widget.userId, context);
             },
           ),
         ],
@@ -131,5 +135,14 @@ class _ListMaterialsState extends State<ListMaterials> {
       print(itemsMatch.length);
       setState(() {});
     }
+  }
+
+  void getPersonalMaterials(String userId, context) async{
+    Uri url = Uri.parse('http://localhost:3000/users/'+userId);
+    var response = await http.get(url);
+    var parsed = json.decode(response.body);
+    List personalItems = [];
+    personalItems = parsed['itemsPrueba'];
+    Navigator.push(context, MaterialPageRoute(builder: (context) => PersonalMaterials(personalItems: personalItems)));
   }
 }

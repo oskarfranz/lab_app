@@ -79,10 +79,12 @@ class _LoginState extends State<Login> {
                   // bool isLogged = false;
                   print(isLogged);
                   if(isLogged){
+                    await context.read<LoginProvider>().getUser(userController.text);
                     print('Logged in successfully');
                     await context.read<MyProvider>().getItems();
                     this.items = await context.read<MyProvider>().items;
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => ListMaterials(items : this.items)));
+                    String userId = context.read<LoginProvider>().userId;
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => ListMaterials(items : this.items, userId: userId)));
                   }
                   else
                     print("Usuario o contraseña incorrecta");
