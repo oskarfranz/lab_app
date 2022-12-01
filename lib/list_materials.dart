@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:lab_app/home_page.dart';
+import 'package:lab_app/match_materials.dart';
 import 'package:lab_app/personal_materials.dart';
 
 class ListMaterials extends StatefulWidget {
@@ -13,6 +16,7 @@ class ListMaterials extends StatefulWidget {
 
 class _ListMaterialsState extends State<ListMaterials> {
   List itemsMatch = [];
+  bool loading = false;
   @override 
   void initState() {
     super.initState();
@@ -49,7 +53,12 @@ class _ListMaterialsState extends State<ListMaterials> {
                 suffixIcon: Align(
                   widthFactor: 1.0,
                   heightFactor: 1.0,
-                  child: IconButton(onPressed: () { filterList(filterController.value.text);},icon: Icon(Icons.search),),
+                  child: IconButton(onPressed: () { 
+                    loading = true;
+                    setState(() {});
+                    filterList(filterController.value.text, this.context);
+                    loading = false;
+                  },icon: Icon(Icons.search),),
                 ),
               ),
             ),
@@ -57,6 +66,7 @@ class _ListMaterialsState extends State<ListMaterials> {
           SizedBox(height: 10,),
           Text("Materiales", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25)),
           widget.items.length == 0 ? CircularProgressIndicator(value: 0.8,) : SizedBox(),
+          this.loading? CircularProgressIndicator(value: 0.8,) : SizedBox(),
           Expanded(
             child: GridView.count(
               padding: const EdgeInsets.all(25),
@@ -109,14 +119,16 @@ class _ListMaterialsState extends State<ListMaterials> {
       )
     );
   }
-  void filterList(value){
-    print("Valora a buscar: "+value);
+  void filterList(value, context){
+    itemsMatch = [];
+    // print("Valora a buscar: "+value);
     for(int i= 0; i<widget.items.length; i++){
-      print(widget.items[i]['name'].toLowerCase().contains(value.toLowerCase()));
-      // if(!widget.items[i]['name'].toLowerCase().contains(value.toLowerCase())){
-      //   print(widget.items[i]['name']);
-      //   // itemsMatch.removeAt(i);
-      // }
+      if(widget.items[i]['name'].toLowerCase().contains(value.toLowerCase())){
+        itemsMatch.add(widget.items[i]);
+        Navigator.push(context, MaterialPageRoute(builder: (context) => MatchMaterials(itemsMatch: itemsMatch)));
+      }
+      print(itemsMatch);
+      print(itemsMatch.length);
       setState(() {});
     }
   }
