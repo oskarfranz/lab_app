@@ -84,14 +84,16 @@ class _ListMaterialsState extends State<ListMaterials> {
                 (index) =>
                 Stack(
                   children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(),
-                        image: DecorationImage(
-                          image: NetworkImage(widget.items[index]['imageUrl']),
-                          fit: BoxFit.cover,
+                    Flexible(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(),
+                          image: DecorationImage(
+                            image: NetworkImage(widget.items[index]['imageUrl']),
+                            fit: BoxFit.cover,
+                            ),
                           ),
-                        ),
+                      ),
                     ),
                     Positioned(
                       bottom: 0,right: 0,left: 0,
@@ -105,7 +107,7 @@ class _ListMaterialsState extends State<ListMaterials> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(widget.items[index]['name'],style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+                                Text(widget.items[index]['name'],style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
                                 IconButton(icon: Icon(Icons.add), onPressed: () async{ 
                                   Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(item : widget.items.elementAt(index), userId: widget.userId)));
                                 },)
