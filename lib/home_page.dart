@@ -25,7 +25,7 @@ class _HomePageState extends State<HomePage> {
   @override 
   void initState() {
     super.initState();
-  
+    print(widget.item["_id"]);
   }
 
   @override
@@ -54,142 +54,144 @@ class _HomePageState extends State<HomePage> {
                   ),
                 Padding(
                   padding: const EdgeInsets.only(left:70.0, right: 53, top:50),
-                  child: Column(
-                    children: [
-                      SizedBox(height: 20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          // SizedBox(width: 55,),
-                          Container(
-                            width: 160,
-                            child: Text(
-                              widget.item['name'],
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w700
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: 37,),
-                          Text(
-                            (widget.item['aviableUnits']>0)? 'Disponible': 'No disponible',
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.green,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 5,),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          SizedBox(width: 0,),
-                          Container(
-                            width: 160,
-                            child: Text(
-                              widget.item['partNumber'],
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w700
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: 37,),
-                          Text(
-                            widget.item['aviableUnits'].toString() + ' Unidades',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ],
-                      ),
-                    SizedBox(height: 30,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                  child: Flexible(
+                    child: Column(
                       children: [
-                        Container(
-                          width: 180,
-                          height: 40,
-                          child: TextButton(
-                            style: TextButton.styleFrom(
-                              backgroundColor: Colors.black,
-                              // foregroundColor: Colors.white,
+                        SizedBox(height: 20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            // SizedBox(width: 55,),
+                            Container(
+                              width: 160,
+                              child: Text(
+                                widget.item['name'],
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w700
+                                ),
+                              ),
                             ),
-                            onPressed: (){ 
-                              showAlertDialog(context, widget.userId, widget.item); 
-                              print(widget.item);
-                            }, 
-                            child: Text(
-                              'Solicitar material',
+                            SizedBox(width: 37,),
+                            Text(
+                              (widget.item['aviableUnits']>0)? 'Disponible': 'No disponible',
                               style: TextStyle(
                                 fontSize: 15,
-                                fontWeight: FontWeight.w300
+                                fontWeight: FontWeight.w700,
+                                color: Colors.green,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 5,),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            SizedBox(width: 0,),
+                            Container(
+                              width: 160,
+                              child: Text(
+                                widget.item['partNumber'],
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w700
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: 37,),
+                            Text(
+                              widget.item['aviableUnits'].toString() + ' Unidades',
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ],
+                        ),
+                      SizedBox(height: 30,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: 180,
+                            height: 40,
+                            child: TextButton(
+                              style: TextButton.styleFrom(
+                                backgroundColor: Colors.black,
+                                // foregroundColor: Colors.white,
+                              ),
+                              onPressed: (){ 
+                                showAlertDialog(context, widget.userId, widget.item); 
+                                print(widget.item);
+                              }, 
+                              child: Text(
+                                'Solicitar material',
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w300
+                                )
                               )
-                            )
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 30,),
-                    Row(
-                      children: [
-                        Text(
-                          'Descripción',
-                          style: TextStyle(
-                            fontSize: 17,
-                            fontWeight: FontWeight.w700
-                          )
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 15,),
-                    Row(
-                      children: [
-                        Container(
-                          width:287,
-                          child: Text(
-                            widget.item['description'],
+                        ],
+                      ),
+                      SizedBox(height: 30,),
+                      Row(
+                        children: [
+                          Text(
+                            'Descripción',
                             style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400
+                              fontSize: 17,
+                              fontWeight: FontWeight.w700
                             )
                           ),
-                        )
-                      ],
-                    ),
-                    SizedBox(height: 30,),
-                    Row(
-                      children: [
-                        Text(
-                          'Características',
-                          style: TextStyle(
-                            fontSize: 17,
-                            fontWeight: FontWeight.w700
+                        ],
+                      ),
+                      SizedBox(height: 15,),
+                      Row(
+                        children: [
+                          Container(
+                            width:287,
+                            child: Text(
+                              widget.item['description'],
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400
+                              )
+                            ),
                           )
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 15,),
-                    Row(
-                      children: [
-                        Container(
-                          width:287,
-                          child: Text(
-                            widget.item['features'].toString().replaceFirst('[','- ').replaceFirst(']','').replaceAll(',','\n-'),
+                        ],
+                      ),
+                      SizedBox(height: 30,),
+                      Row(
+                        children: [
+                          Text(
+                            'Características',
                             style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400
+                              fontSize: 17,
+                              fontWeight: FontWeight.w700
                             )
                           ),
-                        ),
+                        ],
+                      ),
+                      SizedBox(height: 15,),
+                      Row(
+                        children: [
+                          Container(
+                            width:287,
+                            child: Text(
+                              widget.item['features'].toString().replaceFirst('[','- ').replaceFirst(']','').replaceAll(',','\n-'),
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400
+                              )
+                            ),
+                          ),
+                        ],
+                      ),
                       ],
                     ),
-                    ],
                   ),          
                 ),
                 SizedBox(height: 25),
@@ -270,7 +272,7 @@ showAlertDialog(BuildContext context, userId, item) {
       "status": "No devuelto",
       "image": item['imageUrl'],
       "unidades": "1",
-      "fecha": "30/11/2022"
+      "fecha": "15/12/2022"
     };
 
     var response = await http.get(url);
@@ -281,7 +283,7 @@ showAlertDialog(BuildContext context, userId, item) {
     print(personalItems);
 
     updateItems(userId, personalItems);
-
+    // updateAviableunits(item["_id"], aviable);
     getPersonalMaterials(userId, context);
 
   }
@@ -291,4 +293,14 @@ showAlertDialog(BuildContext context, userId, item) {
     var postResponse = await http.post(urlPost,headers: {'Content-type' : 'application/json'}, body: jsonEncode(personalItems));
     print(postResponse);
     
+  }
+
+    void updateAviableunits(itemId, units)async{
+    // int aviable = int.parse(item["aviableUnits"]) - 1;
+    var data = {
+      "aviableUnits": "1",
+    };
+    Uri urlPost = Uri.parse('http://localhost:3000/items/update/'+itemId);
+    var postResponse = await http.post(urlPost,headers: {'Content-type' : 'application/json'}, body: jsonEncode(units));
+    print(postResponse);
   }

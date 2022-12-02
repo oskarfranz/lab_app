@@ -52,7 +52,7 @@ class MatchMaterials extends StatelessWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(itemsMatch[index]['name'],style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+                                Text(itemsMatch[index]['name'],style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
                                 IconButton(icon: Icon(Icons.add), onPressed: () async{ 
                                   Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(item : itemsMatch.elementAt(index), userId: userId)));
                                 },)
